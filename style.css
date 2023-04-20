@@ -4,6 +4,10 @@ body {
   line-height: 1;
 }
 
+/* #hour-8 textarea {
+  background-color: black;
+} */
+
 textarea {
   background: transparent;
   border: none;

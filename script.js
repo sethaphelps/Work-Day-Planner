@@ -1,18 +1,27 @@
-function setHourColors() {
-  var now = dayjs();
+var now = moment().format("MM-DD-YYYY");
+//console.log("now", now)
+var currentDate = document.getElementById("currentDay");
+//console.log(currentDate)
+currentDate.textContent = now;
+var finalTime = 18;
 
-  for (var i = 9; i < 18; i++) {
-    // $("#hour" + i + "textarea").removeClass("future");
-    if (i < now.hour()) {
-      $("#hour" + i + "textarea").addClass("past");
-    } else if (i == now.hour()) {
-      $("#hour" + i + "textarea").addClass("present");
+function setHourColors() {
+  console.log("setHourColors ran");
+  var currentTime = moment();
+  for (var i = 8; i <= finalTime; i++) {
+    console.log($("#hour-" + i + " textarea"));
+    if (i < currentTime.hour()) {
+      $("#hour-" + i + " textarea").removeClass("future");
+      $("#hour-" + i + " textarea").addClass("past");
+    } else if (i == currentTime.hour()) {
+      $("#hour-" + i + " textarea").removeClass("future");
+      $("#hour-" + i + " textarea").addClass("present");
     }
   }
 }
 
 function loadStoredData() {
-  var eventsData = JSON.parse(localStorage.getItem(calendarEvents));
+  var eventsData = JSON.parse(localStorage.getItem("calendarEvents"));
   if (!eventsData) {
     eventsData = {
       hour8: "",
@@ -40,4 +49,3 @@ $(function () {
   loadStoredData();
   setHourColors();
 });
-
