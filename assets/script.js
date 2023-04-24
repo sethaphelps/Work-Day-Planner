@@ -1,7 +1,6 @@
 var now = moment().format("MM-DD-YYYY");
-//console.log("now", now)
 var currentDate = document.getElementById("currentDay");
-//console.log(currentDate)
+var eventsData = {};
 currentDate.textContent = now;
 var finalTime = 18;
 
@@ -21,8 +20,10 @@ function setHourColors() {
 }
 
 function loadStoredData() {
-  var eventsData = JSON.parse(localStorage.getItem("calendarEvents"));
+  eventsData = JSON.parse(localStorage.getItem("calendarEvents"));
   if (eventsData !== null) {
+    generate();
+  } else {
     eventsData = {
       hour8: "",
       hour9: "",
@@ -37,7 +38,14 @@ function loadStoredData() {
       hour18: "",
     };
   }
-  // todo load existing data from local storage
+}
+
+function generate() {
+  for (var i = 8; i <= finalTime; i++) {
+    let textblockId = "hour" + i;
+    var textblock = document.querySelector(`#${textblockId}`);
+    textblock.textContent = eventsData["hour" + i];
+  }
 }
 
 function handleSaveClick(event) {
@@ -55,12 +63,3 @@ $(function () {
 });
 
 $(".saveBtn").on("click", handleSaveClick);
-
-function generate(){
-  for (var i = 8; i <= 18; i++){
-    let textblockId = "hour-" +1
-    var textblock = $("hour" + i);
-    textblock.textContent = eventsData["hour" + i];
-  }
-}
-
